@@ -26,7 +26,6 @@ public class UsuarioTest {
 	@InjectMocks
 	private Usuario juan;
 
-//	@InjectMocks
 	@Mock
 	private Usuario pablo;
 	private Producto laMascaraDelZorro = new Producto();
