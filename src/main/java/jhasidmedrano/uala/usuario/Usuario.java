@@ -78,7 +78,7 @@ public class Usuario {
 	public boolean isAntiguo() {
 		return productoVisto.isViejo();
 	}
-	
+
 	public boolean isMirandoProductoInteresante() {
 		return productoVisto.isInteresante();
 	}

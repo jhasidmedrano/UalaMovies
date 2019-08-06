@@ -1,57 +1,71 @@
 package jhsidmedrano.uala;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.anyObject;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.when;
+
 import java.time.LocalDate;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import jhasidmedrano.uala.producto.Pelicula;
 import jhasidmedrano.uala.producto.Producto;
 import jhasidmedrano.uala.usuario.Usuario;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith(MockitoJUnitRunner.class)
 public class UsuarioTest {
-	
-	private Usuario juan = null;
-	private Usuario pablo = null;
-	private Usuario pedro = null;
-	
+
+	@InjectMocks
+	private Usuario juan;
+
+//	@InjectMocks
+	@Mock
+	private Usuario pablo;
+	private Producto laMascaraDelZorro = new Producto();
+	private Producto capitanaMarvel = new Producto();
+
 	@Before
 	public void setUp() {
 		juan = new Usuario();
 		pablo = new Usuario();
-		pedro = new Usuario();
-		
-		//PENDING JMEDRANO:
-		//Generar un lista de productos variados
+		laMascaraDelZorro = new Producto(LocalDate.of(1998,10,10), 120, "La mascara del zorro");
+		capitanaMarvel = new Pelicula(LocalDate.of(2019, 10, 10), 120, "Capitana Marvel");
 	}
-	
 
 	@Test
 	public void testUsuarioAntiguo() {
-		Producto laMascaraDelZorro = new Pelicula(LocalDate.of(2010, 10, 10), 120, "La mascara del Zorro");
 		juan.setProductoVisto(laMascaraDelZorro);
-		Assert.assertEquals(true, juan.isAntiguo());
-		
+		assertTrue(juan.isAntiguo());
 	}
 	
 	@Test
 	public void testUsuarioNoAntiguo() {
-		Producto capitanaMarvel = new Pelicula(LocalDate.of(2019, 10, 10), 120, "Capitana Marvel");
 		juan.setProductoVisto(capitanaMarvel);
-		Assert.assertEquals(false, juan.isAntiguo());
+		assertFalse(juan.isAntiguo());
 	}
 
 	@Test
 	public void testUsuarioMiraProductoInteresante() {
-		//PENDING TEST
-		Assert.assertEquals(true, pablo.isMirandoProductoInteresante());
+		juan.setProductoVisto(capitanaMarvel);
+		assertEquals(true, juan.isMirandoProductoInteresante());
+	}
+
+	@Test
+	public void testUsuarioMiraProductoInteresanteMock() {
+		when(pablo.isMirandoProductoInteresante()).thenReturn(false);
+		assertEquals(true, pablo.isMirandoProductoInteresante());
 	}
 	
 	@Test
 	public void testUsuarioNoMiraProductoInteresante() {
-		//PENDING TEST
-		Assert.assertEquals(false, pablo.isMirandoProductoInteresante());
 	}
 	
 	@Test

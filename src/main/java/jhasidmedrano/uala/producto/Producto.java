@@ -14,6 +14,9 @@ public class Producto {
 	protected int duracion;
 	protected String titulo;
 
+	public Producto() {
+	}
+
 	public Producto(LocalDate anioEstreno, int duracion, String titulo) {
 		super();
 		this.anioEstreno = anioEstreno;
@@ -50,7 +53,7 @@ public class Producto {
 	}
 
 	public boolean isViejo() {
-		Period period = Period.between(LocalDate.now(), anioEstreno);
+		Period period = Period.between(anioEstreno, LocalDate.now());
 		return period.getYears() > 2;
 	}
 
